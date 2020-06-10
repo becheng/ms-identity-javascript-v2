@@ -15,13 +15,15 @@ This is a Proof of Concept (PoC) forked from [Azure-Samples/ms-identity-javascri
 - [ ] Use of separate AAD tenant to serve as control pane for B2B users for the app.
 - [ ] Use of application specific roles defined in the registered AAD app's manifest.
 - [ ] Emit those app roles as role claims within the OIDC id_token.
-- [ ] Support SSO of work accounts and B2B guest users within the same app.
+- [ ] Support SSO of work accounts (i.e. use of commmon endpoint) and B2B guest users (i.e. use of tenant specific endpoint) within the same app.
+- [ ] Demostrate  admin consent framework to accept the permissions of an app to access a tenant.
+- [ ] Demostrate B2B users (without federation) request of the one time passcode to sign on to the app. 
 - [ ] Use of MS Graph to retrieve logged in user's profile for both B2B and Multi-tenant users.
 - [ ] Use of MS Graph to the retrieve all users within an user's org which is only applicable for multi-tenant logins.  By design, the users endpoint ` https://graph.microsoft.com/v1.0/users` is not available for B2B guest accounts.
 
 ## Login Scenarios 
-- [ ] 1. A user logins to the app from another AAD tenant
-- [ ] 2. A B2B guest user without federation logins to the app
+- [ ] 1. A user logins to the app from another AAD tenant, 
+- [ ] 2. A B2B guest user without federation logins to the app, 
 - [ ] 3. A B2B guest user with federation logins to the app    
 
 ## AAD Tenant Considerations
