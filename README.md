@@ -8,6 +8,28 @@ description: "A simple JavaScript Single-Page Application using the Auth Code fl
 urlFragment: "ms-identity-javascript-v2"
 ---
 
+# Multi-tenant AAD SPA with B2B Logins
+This is a Proof of Concept (PoC) forked from [Azure-Samples/ms-identity-javascript-v2](https://github.com/Azure-Samples/ms-identity-javascript-v2) that demostrates how an app can support Azure AD (AAD) multi-tenant logins (i.e. work accounts from other AAD tenants) and B2B Guest logins. 
+
+## Key PoC Concepts
+- [ ] Use of separate AAD tenant to serve as control pane for B2B users for the app.
+- [ ] Use of application specific roles defined in the registered AAD app's manifest.
+- [ ] Emit those app roles as role claims within the OIDC id_token.
+- [ ] Support SSO of work accounts and B2B guest users within the same app.
+- [ ] Use of MS Graph to retrieve logged in user's profile for both B2B and Multi-tenant users.
+- [ ] Use of MS Graph to the retrieve all users within an user's org which is only applicable for multi-tenant logins.  By design, the users endpoint ` https://graph.microsoft.com/v1.0/users` is not available for B2B guest accounts.
+
+## Login Scenarios 
+- [ ] 1. A user logins to the app from another AAD tenant
+- [ ] 2. A B2B guest user without federation logins to the app
+- [ ] 3. A B2B guest user with federation logins to the app    
+
+## AAD Tenant Considerations
+Consider the following configurations and settings for your own AAD tenent or providing this as education to your customers, when providing consent of multi-tenant applications.  
+- [ ] In preview, AAD now supports a admin consent workflow if enabled, see [docs](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/configure-admin-consent-workflow).
+- [ ] To enforce that a user must be assigned to an app, go to  *Enterprise App* > *Properties* and set *User assignment required* to **Yes**.  Otherwise by default, all users of tenant will have access to the app. 
+- [ ] In preview, the B2B passcode invitation process can be enabled, see [docs](https://docs.microsoft.com/en-us/azure/active-directory/b2b/one-time-passcode) so invited guests with federation of their IDP will recieve a passcode to sign on the app.  Upon log in, users will be prompted to provide a proper password.  
+
 # MSAL 2.x JavaScript Sample Application
 
 A simple vanilla JavaScript single-page application which demonstrates how to configure [MSAL.JS 2.x](https://www.npmjs.com/package/@azure/msal-browser) to login, logout, and acquire an access token for a protected resource such as Microsoft Graph API. This version of the MSAL.js library uses the Authorization Code flow w/ PKCE.
