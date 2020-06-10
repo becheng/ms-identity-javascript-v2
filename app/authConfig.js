@@ -1,11 +1,13 @@
 // Config object to be passed to Msal on creation.
 // For a full list of msal.js configuration parameters, 
 // visit https://azuread.github.io/microsoft-authentication-library-for-js/docs/msal/modules/_authenticationparameters_.html
-const msalConfig = {
+
+// BCheng Update: change the object variables to use  'let' instead 'const' so they may be updated for B2B logins
+let msalConfig = {
     auth: {
-        clientId: "Enter_the_Application_Id_Here",
-        authority: "Enter_the_Cloud_Instance_Id_HereEnter_the_Tenant_Info_Here",
-        redirectUri: "Enter_the_Redirect_Uri_Here",
+        clientId: "ebfdcb54-7584-48dc-86e3-8c2392aed2ca",
+        authority: "https://login.microsoftonline.com/organizations/",
+        redirectUri: "http://localhost:3000/",
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
@@ -14,12 +16,13 @@ const msalConfig = {
 };
 
 // Add here scopes for id token to be used at MS Identity Platform endpoints.
-const loginRequest = {
-    scopes: ["openid", "profile", "User.Read"]
+let loginRequest = {
+    scopes: ["openid", "profile", "User.Read", "User.Read.All"]
 };
 
 // Add here scopes for access token to be used at MS Graph API endpoints.
-const tokenRequest = {
-    scopes: ["User.Read", "Mail.Read"],
+let tokenRequest = {
+    //scopes: ["User.Read", "Mail.Read", "User.Read.All"],
+    scopes: ["User.Read", "User.Read.All"],
     forceRefresh: false // set this to "true" if you would like to skip a cached token and go to the server
 };
