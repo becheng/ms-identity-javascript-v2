@@ -5,9 +5,9 @@
 // BCheng Update: change the object variables to use  'let' instead 'const' so they may be updated for B2B logins
 let msalConfig = {
     auth: {
-        clientId: "ebfdcb54-7584-48dc-86e3-8c2392aed2ca",
+        clientId: "{Application Id of the Registered Azure AD app}",
         authority: "https://login.microsoftonline.com/organizations/",
-        redirectUri: "http://localhost:3000/",
+        redirectUri: "{Your redirect url that was configured as part of your registered app, e.g. http://localhost:3000/}",
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
