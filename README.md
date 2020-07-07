@@ -16,7 +16,7 @@ This is a Proof of Concept (PoC) forked from [Azure-Samples/ms-identity-javascri
 - [ ] Use of application specific roles defined in the registered AAD app's manifest.
 - [ ] Emit those app roles as role claims within the OIDC id_token.
 - [ ] Support SSO of work accounts (i.e. use of commmon endpoint) and B2B guest users (i.e. use of tenant specific endpoint) within the same app.
-- [ ] Demostrate  admin consent framework to accept the permissions of an app to access a tenant.
+- [ ] Demostrate admin consent framework to accept the permissions of an app to access a tenant.
 - [ ] Demostrate B2B users (without federation) request of the one time passcode to sign on to the app. 
 - [ ] Use of MS Graph to retrieve logged in user's profile for both B2B and Multi-tenant users.
 - [ ] Use of MS Graph to the retrieve all users within an user's org which is only applicable for multi-tenant logins.  By design, the users endpoint ` https://graph.microsoft.com/v1.0/users` is not available for B2B guest accounts.
@@ -43,7 +43,8 @@ A simple vanilla JavaScript single-page application which demonstrates how to co
 | `app`             | Contains sample source files               |
 | `authPopup.js`    | Main authentication logic resides here (using Popup flow).            |
 | `authRedirect.js` | Use this instead of `authPopup.js` for authentication with redirect flow.   |
-| `authConfig.js`   | Contains configuration parameters for the sample. |
+| `authConfig.js`   | Contains configuration parameters for a Multi-tenant login for the sample. |
+| `authConfig-b2bOverride.js`   | Contains configuration parameters for a B2B login for the sample. |
 | `graph.js`        | Provides a helper function for calling MS Graph API.   |
 | `graphConfig.js`  | Contains API endpoints for MS Graph.       |
 | `ui.js`           | Contains UI logic.                         |
@@ -65,23 +66,23 @@ A simple vanilla JavaScript single-page application which demonstrates how to co
 ## Setup
 
 1. [Register a new application](https://docs.microsoft.com/azure/active-directory/develop/scenario-spa-app-registration) in the [Azure Portal](https://portal.azure.com). Ensure that the application is enabled for the [authorization code flow with PKCE](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow). This will require that you redirect URI configured in the portal is of type `SPA`.
-2. Open the [/app/authConfig.js](./app/authConfig.js) file and provide the required configuration values.
-3. On the command line, navigate to the root of the repository, and run `npm install` to install the project dependencies via npm.
+2. Open the [/app/authConfig.js](./app/authConfig.js) file and provide the required configuration values for Multi-tenant logins.
+3. Open the [/app/authConfig-b2bOverride.js](./app/authConfig-b2bOverride.js) file and provide the required configuration values for B2B logins.
+4. On the command line, navigate to the root of the repository, and run `npm install` to install the project dependencies via npm.
 
 ## Running the sample
 
 1. Configure authentication and authorization parameters:
    1. Open `authConfig.js`
    2. Replace the string `"Enter_the_Application_Id_Here"` with your app/client ID on AAD Portal.
-   3. Replace the string `"Enter_the_Cloud_Instance_Id_HereEnter_the_Tenant_Info_Here"` with `"https://login.microsoftonline.com/common/"` (*note*: This is for multi-tenant applications located on the global Azure cloud. For more information, see the [documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-javascript)).
-   4. Replace the string `"Enter_the_Redirect_Uri_Here"` with the redirect uri you setup on AAD Portal.
-2. Configure the parameters for calling MS Graph API:
-   1. Open `graphConfig.js`.
-   2. Replace the string `"Enter_the_Graph_Endpoint_Herev1.0/me"` with `"https://graph.microsoft.com/v1.0/me"`.
-   3. Replace the string `"Enter_the_Graph_Endpoint_Herev1.0/me/messages"` with `"https://graph.microsoft.com/v1.0/me/messages"`.
-3. To start the sample application, run `npm start`.
-4. Finally, open a browser to [http://localhost:3000](http://localhost:3000).
-
+   3. Replace the string `"Enter_the_Multi-tenant_Login_Endpoint_Here"` with `"https://login.microsoftonline.com/organizations/"` (*note*: This is for multi-tenant applications located on the global Azure cloud. For more information, see the [documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-javascript)).
+   4. Replace the string `"Enter_the_Redirect_Uri_Here"` with the redirect uri you setup on AAD Portal, e.g. `"http://localhost:3000/"`"
+   5. Open `authConfig-b2bOverride.js`
+   6. Replace the string `"Enter_the_TenantSpecific_Login_Endpoint_Here"` with `"https://login.microsoftonline.com/xxxx-xxxx-xxxx-xxxxx/"` where `xxxx-xxxx-xxxx-xxxxx` is the tenant Id.
+2. To start the sample application, run `npm start`.
+3. Open a browser to [http://localhost:3000/index](http://localhost:3000/index) to test multi-tenant logins.
+4. Open a browser to [http://localhost:3000/b2b-index](http://localhost:3000/b2n-index) to test B2B guest logins.
+   
 ## Key concepts
 
 This sample demonstrates the following MSAL workflows:

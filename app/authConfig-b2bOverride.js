@@ -1,7 +1,7 @@
 // override the auth object to support B2B logins
 
 // override the authority to tenant specific Id, i.e. the tenant that contains the b2b users 
-msalConfig.auth.authority = "{Your tenant specific endpoint eg. https://login.microsoftonline.com/xxxxx-xxxx-xxxx-xxxx-xxxxxxxx/}";
+msalConfig.auth.authority = "Enter_the_TenantSpecific_Login_Endpoint_Here";
 
 // override the loginRequest obj to b2b user scopes
 loginRequest.scopes =  ["openid", "profile", "User.Read", "User.Read.All"];
